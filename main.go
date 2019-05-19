@@ -5,6 +5,8 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/bwmarrin/discordgo"
@@ -49,9 +51,22 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	switch m.Content {
+	mes := strings.Split(m.Content, " ")
+
+	if len(mes) == 0 {
+		return
+	}
+
+	switch mes[0] {
 	case "!dice":
-		sendMessage(s, c, fmt.Sprintf("サイコロコロコロ…  %v!!", rand.Intn(6)+1))
+		n := 6
+		if len(mes) >= 2 && len(mes[1]) <= 6 {
+			n, err = strconv.Atoi(mes[1])
+			if err != nil {
+				n = 6
+			}
+		}
+		sendMessage(s, c, fmt.Sprintf("サイコロコロコロ…  %v!!", rand.Intn(n)+1))
 	case "!686":
 		sendMessage(s, c, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
 	case "!coupling":
@@ -65,6 +80,12 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		sendMessage(s, c, `あたりめを一口大に切る、3分放置
 お湯を注ぐ、しょうゆ、みりん、さけで味をととのえる。
 米と一緒に炊飯器に入れて炊く`)
+	case "!help":
+		sendMessage(s, c, `!dice サイコロを振ります
+!686 686個のアイコンからランダムで一つ表示します
+!coupling ランダムなカップリングを表示します
+!atarime-gohan あたりめご飯のレシピを表示します
+!help このヘルプを表示します`)
 	}
 
 }

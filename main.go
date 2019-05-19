@@ -62,7 +62,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		n := 6
 		if len(mes) >= 2 && len(mes[1]) <= 6 {
 			n, err = strconv.Atoi(mes[1])
-			if n == 0 {
+			if n <= 0 {
 				n = 6
 			}
 		}

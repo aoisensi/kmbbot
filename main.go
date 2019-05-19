@@ -61,6 +61,10 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			j++
 		}
 		sendMessage(s, c, couplings[i]+couplings[j])
+	case "!atarime-gohan":
+		sendMessage(s, c, `あたりめを一口大に切る、3分放置
+お湯を注ぐ、しょうゆ、みりん、さけで味をととのえる。
+米と一緒に炊飯器に入れて炊く`)
 	}
 
 }

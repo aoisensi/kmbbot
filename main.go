@@ -144,6 +144,8 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			}
 		}
 		sendMessage(s, c, fmt.Sprintf("サイコロコロコロ…  %v!!", rand.Intn(n)+1))
+	case "!flip":
+		sendMessage(s, c, []string{"表", "裏"}[rand.Intn(2)])
 	case "!686":
 		sendMessage(s, c, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
 	case "!coupling":
@@ -184,6 +186,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		sendMessage(s, c, d)
 	case "!help":
 		sendMessage(s, c, `!dice サイコロを振ります
+!flip コイントスをします
 !686 686個のアイコンからランダムで一つ表示します
 !coupling ランダムなカップリングを表示します
 !atarime-gohan !oyako-don !gyo-za !tori-teriyaki 

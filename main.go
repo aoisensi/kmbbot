@@ -214,6 +214,7 @@ func main() {
 	}
 
 	discord.AddHandler(onMessageCreate)
+	discord.AddHandler(onMessagePinUpdate)
 
 	err = discord.Open()
 	if err != nil {
@@ -247,14 +248,14 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				n = 6
 			}
 		}
-		sendMessage(s, c, fmt.Sprintf("サイコロコロコロ…  %v!!", rand.Intn(n)+1))
+		sendMessage(s, c.ID, fmt.Sprintf("サイコロコロコロ…  %v!!", rand.Intn(n)+1))
 	case "!flip":
-		sendMessage(s, c, []string{"表", "裏"}[rand.Intn(2)])
+		sendMessage(s, c.ID, []string{"表", "裏"}[rand.Intn(2)])
 	case "!686":
-		sendMessage(s, c, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
+		sendMessage(s, c.ID, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
 	case "!coupling":
 		if mes[1] == "v2" {
-			sendMessage(s, c, []string{"いけひで", "よぞどん"}[rand.Intn(2)])
+			sendMessage(s, c.ID, []string{"いけひで", "よぞどん"}[rand.Intn(2)])
 			return
 		}
 		l := len(couplings)
@@ -266,38 +267,38 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		if j >= i {
 			j++
 		}
-		sendMessage(s, c, couplings[i]+couplings[j])
+		sendMessage(s, c.ID, couplings[i]+couplings[j])
 	case "!atarime-gohan":
-		sendMessage(s, c, recipe["atarime-gohan"])
+		sendMessage(s, c.ID, recipe["atarime-gohan"])
 	case "!oyako-don":
-		sendMessage(s, c, recipe["oyako-don"])
+		sendMessage(s, c.ID, recipe["oyako-don"])
 	case "!gyo-za":
-		sendMessage(s, c, recipe["gyo-za"])
+		sendMessage(s, c.ID, recipe["gyo-za"])
 	case "!tori-teriyaki":
-		sendMessage(s, c, recipe["tori-teriyaki"])
+		sendMessage(s, c.ID, recipe["tori-teriyaki"])
 	case "!avocado-dip":
-		sendMessage(s, c, recipe["avocado-dip"])
+		sendMessage(s, c.ID, recipe["avocado-dip"])
 	case "!napori-itame":
-		sendMessage(s, c, recipe["napori-itame"])
+		sendMessage(s, c.ID, recipe["napori-itame"])
 	case "!mitarasi":
-		sendMessage(s, c, recipe["mitarasi"])
+		sendMessage(s, c.ID, recipe["mitarasi"])
 	case "!yuzu-daikon":
-		sendMessage(s, c, recipe["yuzu-daikon"])
+		sendMessage(s, c.ID, recipe["yuzu-daikon"])
 	case "!tomamesi":
 		keys := make([]string, 0, len(recipe))
 		for k := range recipe {
 			keys = append(keys, k)
 		}
-		sendMessage(s, c, recipe[keys[rand.Intn(len(keys))]])
+		sendMessage(s, c.ID, recipe[keys[rand.Intn(len(keys))]])
 	case "!dontoko":
 		d := ""
 		for i := rand.Intn(90) + 10; i > 0; i-- {
 			d += dontokoc[rand.Intn(len(dontokoc))]
 		}
 		d += "んとこさんじゃないですか"
-		sendMessage(s, c, d)
+		sendMessage(s, c.ID, d)
 	case "!help":
-		sendMessage(s, c, `!dice サイコロを振ります
+		sendMessage(s, c.ID, `!dice サイコロを振ります
 !flip コイントスをします
 !686 686個のアイコンからランダムで一つ表示します
 !coupling ランダムなカップリングを表示します
@@ -311,8 +312,12 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 }
 
-func sendMessage(s *discordgo.Session, c *discordgo.Channel, msg string) {
-	_, err := s.ChannelMessageSend(c.ID, msg)
+func onMessagePinUpdate(s *discordgo.Session, c *discordgo.ChannelPinsUpdate) {
+	sendMessage(s, c.ChannelID, "ピン留めを検知しました!!")
+}
+
+func sendMessage(s *discordgo.Session, channelID string, msg string) {
+	_, err := s.ChannelMessageSend(channelID, msg)
 
 	if err != nil {
 		log.Println("Error sending message: ", err)

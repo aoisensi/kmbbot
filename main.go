@@ -178,7 +178,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 		sendMessage(s, c, recipe[keys[rand.Intn(len(keys))]])
 	case "!dontoko":
-		d := "<@435071703513694208> "
+		d := ""
 		for i := rand.Intn(90) + 10; i > 0; i-- {
 			d += dontokoc[rand.Intn(len(dontokoc))]
 		}

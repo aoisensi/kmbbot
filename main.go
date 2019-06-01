@@ -253,6 +253,10 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	case "!686":
 		sendMessage(s, c, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
 	case "!coupling":
+		if mes[1] == "v2" {
+			sendMessage(s, c, []string{"いけひで", "よぞどん"}[rand.Intn(2)])
+			return
+		}
 		l := len(couplings)
 		if rand.Intn(100) != 0 {
 			l--

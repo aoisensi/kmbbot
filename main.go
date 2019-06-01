@@ -118,7 +118,7 @@ var (
 		"ひで", "いけ", "よぞ", "どん", "ねで",
 		"トマ", "しゃち", "ツナ", "イカ", "くろ",
 		"すた", "そふ", "ほむ", "ゆた", "あお",
-		"かえ", "うぇく", "ゆめ",
+		"かえ", "うぇく", "ゆめ", "カヅ", // You should keep last kaduho
 	}
 	dontokoc = []string{"ど", "ど", "ど", "ｄ", "d", " ", "っ"}
 	recipe   = map[string]string{
@@ -253,8 +253,12 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	case "!686":
 		sendMessage(s, c, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
 	case "!coupling":
-		i := rand.Intn(len(couplings))
-		j := rand.Intn(len(couplings) - 1)
+		l := len(couplings)
+		if rand.Intn(100) != 0 {
+			l--
+		}
+		i := rand.Intn(l)
+		j := rand.Intn(l - 1)
 		if j >= i {
 			j++
 		}
@@ -293,7 +297,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 !flip コイントスをします
 !686 686個のアイコンからランダムで一つ表示します
 !coupling ランダムなカップリングを表示します
-!atarime-gohan !oyako-don !gyo-za !tori-teriyaki 
+!atarime-gohan !oyako-don !gyo-za !tori-teriyaki
 !avocado-dip !napori-itame !mitarasi !yuzu-daikon
 レシピを表示します
 !tomamesi ランダムでトマ飯レシピを表示します

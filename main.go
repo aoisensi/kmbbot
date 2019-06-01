@@ -214,7 +214,7 @@ func main() {
 	}
 
 	discord.AddHandler(onMessageCreate)
-	discord.AddHandler(onMessagePinUpdate)
+	//discord.AddHandler(onMessagePinUpdate)
 
 	err = discord.Open()
 	if err != nil {
@@ -312,9 +312,11 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 }
 
+/*
 func onMessagePinUpdate(s *discordgo.Session, c *discordgo.ChannelPinsUpdate) {
 	sendMessage(s, c.ChannelID, "ピン留めを検知しました!!")
 }
+*/
 
 func sendMessage(s *discordgo.Session, channelID string, msg string) {
 	_, err := s.ChannelMessageSend(channelID, msg)

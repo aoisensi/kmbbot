@@ -254,7 +254,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	case "!686":
 		sendMessage(s, c.ID, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
 	case "!coupling":
-		if mes[1] == "v2" {
+		if len(mes) >= 2 && mes[1] == "v2" {
 			sendMessage(s, c.ID, []string{"いけひで", "よぞどん"}[rand.Intn(2)])
 			return
 		}

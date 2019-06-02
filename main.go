@@ -250,7 +250,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 		sendMessage(s, c.ID, fmt.Sprintf("サイコロコロコロ…  %v!!", rand.Intn(n)+1))
 	case "!dise":
-		sendMessage(s, c.ID, "もしかして: !dice")
+		sendMessage(s, c.ID, "もしかして: !dice 間違えた人: <@"+m.Author.ID+">")
 	case "!flip":
 		sendMessage(s, c.ID, []string{"表", "裏"}[rand.Intn(2)])
 	case "!686":

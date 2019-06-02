@@ -300,13 +300,14 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		d += "んとこさんじゃないですか"
 		sendMessage(s, c.ID, d)
 	case "!help":
-		sendMessage(s, c.ID, `!dice サイコロを振ります
+		sendMessage(s, c.ID, `コマンド一覧
+!dice サイコロを振ります
 !flip コイントスをします
 !686 686個のアイコンからランダムで一つ表示します
 !coupling ランダムなカップリングを表示します
 !atarime-gohan !oyako-don !gyo-za !tori-teriyaki
 !avocado-dip !napori-itame !mitarasi !yuzu-daikon
-レシピを表示します
+トマ飯レシピを表示します
 !tomamesi ランダムでトマ飯レシピを表示します
 !dontoko どんとこさんに挨拶します
 !help このヘルプを表示します`)

@@ -118,7 +118,7 @@ var (
 		"ひで", "いけ", "よぞ", "どん", "ねで",
 		"トマ", "しゃち", "ツナ", "イカ", "くろ",
 		"すた", "そふ", "ほむ", "ゆた", "あお",
-		"かえ", "うぇく", "ゆめ", "カヅ", // You should keep last kaduho
+		"かえ", "うぇく", "ゆめ", "びお", "カヅ", // You should keep last kaduho
 	}
 	dontokoc = []string{"ど", "ど", "ど", "ｄ", "d", " ", "っ"}
 	recipe   = map[string]string{

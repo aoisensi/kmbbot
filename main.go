@@ -344,7 +344,7 @@ func onChannelPinsUpdate(s *discordgo.Session, c *discordgo.ChannelPinsUpdate) {
 	if c.LastPinTimestamp == "" {
 		return
 	}
-	mes, _ := sendMessage(s, c.ChannelID, "ピン留めを検知しました!!")
+	mes, _ := sendMessage(s, c.ChannelID, "ピン留めの変更を検知しました!!")
 	if mes != nil {
 		kentis[mes.ID] = mes
 	}

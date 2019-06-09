@@ -261,9 +261,29 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	case "!686":
 		sendMessage(s, c.ID, fmt.Sprintf("http://aka.saintpillia.com/killme/icon/%v.png", i686[rand.Intn(686)]))
 	case "!coupling":
-		if len(mes) >= 2 && mes[1] == "v2" {
-			sendMessage(s, c.ID, []string{"いけひで", "よぞどん"}[rand.Intn(2)])
-			return
+		if len(mes) >= 2 {
+			switch mes[1] {
+			case "v2":
+				sendMessage(s, c.ID, []string{"いけひで", "よぞどん"}[rand.Intn(2)])
+				return
+			case "3p":
+				l := len(couplings) - 1
+				i := rand.Intn(l)
+				j := rand.Intn(l - 1)
+				k := rand.Intn(l - 2)
+				if j >= i {
+					j++
+				}
+				if k >= i {
+					k++
+				}
+				if k >= j {
+					k++
+				}
+				sendMessage(s, c.ID, couplings[i]+couplings[j]+couplings[k])
+				return
+			}
+
 		}
 		l := len(couplings)
 		if rand.Intn(100) != 0 {

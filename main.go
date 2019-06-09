@@ -199,6 +199,10 @@ var (
 	}
 )
 
+var (
+	kentis = make(map[string]*discordgo.Message, 100)
+)
+
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }
@@ -214,7 +218,8 @@ func main() {
 	}
 
 	discord.AddHandler(onMessageCreate)
-	discord.AddHandler(onMessagePinUpdate)
+	discord.AddHandler(onChannelPinsUpdate)
+	discord.AddHandler(onMessageDelete)
 
 	err = discord.Open()
 	if err != nil {
@@ -315,17 +320,32 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 }
 
-func onMessagePinUpdate(s *discordgo.Session, c *discordgo.ChannelPinsUpdate) {
+func onChannelPinsUpdate(s *discordgo.Session, c *discordgo.ChannelPinsUpdate) {
 	if c.LastPinTimestamp == "" {
 		return
 	}
-	sendMessage(s, c.ChannelID, "ピン留めを検知しました!!")
+	mes, _ := sendMessage(s, c.ChannelID, "ピン留めを検知しました!!")
+	if mes != nil {
+		kentis[mes.ID] = mes
+	}
 }
 
-func sendMessage(s *discordgo.Session, channelID string, msg string) {
-	_, err := s.ChannelMessageSend(channelID, msg)
+func onMessageDelete(s *discordgo.Session, d *discordgo.MessageDelete) {
+	m, ok := kentis[d.ID]
+	if !ok {
+		return
+	}
+	mes, _ := sendMessage(s, m.ChannelID, "検知が削除されたのを検知しました!! 451💢")
+	if mes != nil {
+		kentis[mes.ID] = mes
+	}
+}
+
+func sendMessage(s *discordgo.Session, channelID string, msg string) (message *discordgo.Message, err error) {
+	message, err = s.ChannelMessageSend(channelID, msg)
 
 	if err != nil {
 		log.Println("Error sending message: ", err)
 	}
+	return
 }

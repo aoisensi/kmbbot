@@ -324,6 +324,15 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 		d += "んとこさんじゃないですか"
 		sendMessage(s, c.ID, d)
+	case "!fire":
+		m := "えっ"
+		for i := rand.Intn(10) + 5; i > 0; i-- {
+			m += "ちっ"
+		}
+		if rand.Intn(2) == 1 {
+			m += "ぼっ🔥"
+		}
+		sendMessage(s, c.ID, m)
 	case "!help":
 		sendMessage(s, c.ID, `コマンド一覧
 !dice サイコロを振ります
@@ -335,6 +344,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 トマ飯レシピを表示します
 !tomamesi ランダムでトマ飯レシピを表示します
 !dontoko どんとこさんに挨拶します
+!fire 火をつけます
 !help このヘルプを表示します`)
 	}
 

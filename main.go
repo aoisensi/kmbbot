@@ -354,6 +354,10 @@ func onChannelPinsUpdate(s *discordgo.Session, c *discordgo.ChannelPinsUpdate) {
 	if c.LastPinTimestamp == "" {
 		return
 	}
+	now := time.Now()
+	if now.Month() == time.June && now.Day() == 21 {
+		return
+	}
 	mes, _ := sendMessage(s, c.ChannelID, "ピン留めの変更を検知しました!!")
 	if mes != nil {
 		kentis[mes.ID] = mes

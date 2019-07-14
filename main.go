@@ -334,6 +334,16 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			m += "ぼっ🔥"
 		}
 		sendMessage(s, c.ID, m)
+	case "!rps", "!janken":
+		go func() {
+			sendMessage(s, c.ID, "じゃあいくぜ")
+			time.Sleep(time.Second * 2)
+			sendMessage(s, c.ID, "じゃーん")
+			time.Sleep(time.Second)
+			sendMessage(s, c.ID, "けーん")
+			time.Sleep(time.Second)
+			sendMessage(s, c.ID, []string{"✊", "✌", "✋"}[rand.Intn(3)])
+		}()
 	case "!help":
 		sendMessage(s, c.ID, `コマンド一覧
 !dice サイコロを振ります

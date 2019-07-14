@@ -356,6 +356,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 !tomamesi ランダムでトマ飯レシピを表示します
 !dontoko どんとこさんに挨拶します
 !fire 火をつけます
+!rps !janken じゃんけんします
 !help このヘルプを表示します`)
 	}
 

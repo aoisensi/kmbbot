@@ -344,6 +344,8 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			time.Sleep(time.Second)
 			sendMessage(s, c.ID, []string{"✊", "✌", "✋"}[rand.Intn(3)])
 		}()
+	case "!tomato":
+		sendMessage(s, c.ID, []string{"🍼", "🔪"}[rand.Intn(2)])
 	case "!help":
 		sendMessage(s, c.ID, `コマンド一覧
 !dice サイコロを振ります
@@ -357,6 +359,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 !dontoko どんとこさんに挨拶します
 !fire 火をつけます
 !rps !janken じゃんけんします
+!tomato ミルクオアナイフ
 !help このヘルプを表示します`)
 	}
 

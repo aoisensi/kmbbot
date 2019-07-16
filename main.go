@@ -122,6 +122,7 @@ var (
 		"カヅ", // You should keep last kaduho
 	}
 	dontokoc = []string{"ど", "ど", "ど", "ｄ", "d", " ", "っ"}
+	yutanpoc = []string{"ゆ", "ゆ", "ゆ", "ｙ", "y", " ", "っ"}
 	recipe   = map[string]string{
 		"atarime-gohan": `○あたりめご飯
 あたりめを一口大に切る、3分放置
@@ -346,6 +347,16 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}()
 	case "!tomato":
 		sendMessage(s, c.ID, []string{"🍼", "🔪"}[rand.Intn(2)])
+	case "!yutanpo":
+		d := ""
+		for i := rand.Intn(90) + 10; i > 0; i-- {
+			d += yutanpoc[rand.Intn(len(yutanpoc))]
+		}
+		d += "たんぽさんじゃないですか"
+		if rand.Intn(100) == 0 {
+			d = "ゆゆ式"
+		}
+		sendMessage(s, c.ID, d)
 	case "!help":
 		sendMessage(s, c.ID, `コマンド一覧
 !dice サイコロを振ります
@@ -360,6 +371,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 !fire 火をつけます
 !rps !janken じゃんけんします
 !tomato ミルクオアナイフ
+!yutanpo ゆたんぽさんに挨拶します
 !help このヘルプを表示します`)
 	}
 

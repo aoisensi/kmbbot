@@ -202,6 +202,8 @@ var (
 )
 
 var (
+	discord *discordgo.Session
+
 	kentis = make(map[string]*discordgo.Message, 100)
 )
 
@@ -210,7 +212,8 @@ func init() {
 }
 
 func main() {
-	discord, err := discordgo.New()
+	var err error
+	discord, err = discordgo.New()
 	if err != nil {
 		panic(err)
 	}
@@ -357,6 +360,16 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			d = "ゆゆ式"
 		}
 		sendMessage(s, c.ID, d)
+	case "!heart":
+		ms, err := discord.ChannelMessages(c.ID, 2, "", "", "")
+		if err != nil {
+			log.Println(err.Error())
+		}
+		discord.MessageReactionAdd(c.ID, ms[1].ID, "❤")
+		discord.MessageReactionAdd(c.ID, ms[1].ID, "💛")
+		discord.MessageReactionAdd(c.ID, ms[1].ID, "💚")
+		discord.MessageReactionAdd(c.ID, ms[1].ID, "💙")
+		discord.MessageReactionAdd(c.ID, ms[1].ID, "💜")
 	case "!help":
 		sendMessage(s, c.ID, `コマンド一覧
 !dice サイコロを振ります
@@ -372,6 +385,7 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 !rps !janken じゃんけんします
 !tomato ミルクオアナイフ
 !yutanpo ゆたんぽさんに挨拶します
+!heart レインボーハートリアクション
 !help このヘルプを表示します`)
 	}
 

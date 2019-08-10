@@ -119,7 +119,7 @@ var (
 		"トマ", "しゃち", "ツナ", "イカ", "くろ",
 		"すた", "そふ", "ほむ", "ゆた", "あお",
 		"かえ", "うぇく", "ゆめ", "びお", "いる",
-		"カヅ", // You should keep last kaduho
+		"りあ", "カヅ", // You should keep last kaduho
 	}
 	dontokoc = []string{"ど", "ど", "ど", "ｄ", "d", " ", "っ"}
 	yutanpoc = []string{"ゆ", "ゆ", "ゆ", "ｙ", "y", " ", "っ"}
